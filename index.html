@@ -5,16 +5,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>rps</title>
 </head>
 
 <body>
-    <p id="results">You: 0 | Ties: 0 | Computer: 0</p>
-    <p id="top-text">Select a choice to play</p>
+    <!-- <p id="results">You: 0 | Ties: 0 | Computer: 0</p>
+    <p id="top-text">Select hello a choice to play</p>
     <div id="controls">
         <button id="rock">Rock</button>
         <button id="paper">Paper</button>
         <button id="scissors">Scissors</button>
+    </div> -->
+
+    <div id="container">
+        <div id="round-number">ROUND 1</div>
+        <div id="player-score-box">
+            <p id="score-title">YOU</p>
+            <p id="player-score">0</p>
+        </div>
+        <div id="tie-score-box">
+            <p id="score-title">TIES</p>
+            <p id="tie-score">0</p>
+        </div>
+        <div id="computer-score-box">
+            <p id="score-title">COMPUTER</p>
+            <p id="computer-score">0</p>
+        </div>
+        <div id="player-box">
+            <div id="player-pick"></div>
+            <div id="controls">
+                <button id="rock-button"></button>
+                <button id="paper-button"></button>
+                <button id="scissors-button"></button>
+            </div>
+        </div>
+        <div id="game-history">
+            <button id="reset-btn">RESTART</button>
+        </div>
+        <div id="computer-box">
+            <div id="computer-pick"></div>
+        </div>
     </div>
     <script src="game-logic.js"></script>
 </body>
