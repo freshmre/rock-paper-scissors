@@ -5,60 +5,84 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    /* Decides winner of a single game 
-       expected input 'Rock', 'Paper' or 'Scissors'
-       returnedArray[0] = 1: Win for player, 0: Tie, -1: Loss
-       returnedArray[1] = formatted outcome message
-       playerSelection is case insensitive */
-
-    playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();
-
     if (playerSelection === computerSelection) {
-        return [0, `It's a tie, both played ${computerSelection}`]
+        return 0;
     }
 
     else if ((playerSelection === 'Rock' && computerSelection === 'Scissors') ||
         (playerSelection === 'Paper' && computerSelection === 'Rock') ||
         (playerSelection === 'Scissors' && computerSelection === 'Paper')) {
-        return [1, `You Win! ${playerSelection} beats ${computerSelection}`]
+        return 1;
     }
 
     else {
-        return [-1, `You Lose! ${computerSelection} beats ${playerSelection}`]
+        return -1;
     }
 }
 
 let wins = ties = losses = 0;
+let round = 1;
+let games = 5;
+let end = false;
+let playerChoiceMap = {
+    'rock-button': 'Rock',
+    'paper-button': 'Paper',
+    'scissors-button': 'Scissors',
+}
+let allowed = true;
 
-const choiceBtns = document.querySelectorAll("button");
-const announcement = document.querySelector('#top-text');
-const results = document.querySelector('#results');
-
+const choiceBtns = document.getElementById('controls').querySelectorAll("button");
+const playerScore = document.getElementById('player-score');
+const tieScore = document.getElementById('tie-score');
+const computerScore = document.getElementById('computer-score');
+const playerPick = document.getElementById('player-pick');
+const computerPick = document.getElementById('computer-pick');
+const resetBtn = document.getElementById('reset-btn');
+const roundNumber = document.getElementById('round-number');
 
 choiceBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
+        if (end || !allowed) return;
+        allowed = false;
+        setTimeout(() => allowed = true, 400);
         let output;
-        let games = 5;
+        round++;
         let computerChoice = computerPlay();
-        let gameoutcome = playRound(btn.id, computerChoice);
-        announcement.innerHTML = gameoutcome[1];
-        switch (gameoutcome[0]) {
+        playerSelection = playerChoiceMap[btn.id];
+        computerPick.style.background = `url('assets/${computerChoice.toLowerCase()}-colored.svg') no-repeat`
+        playerPick.style.background = `url('assets/${playerSelection.toLowerCase()}-colored.svg') no-repeat`
+        let gameoutcome = playRound(playerSelection, computerChoice);
+        switch (gameoutcome) {
             case 1:
-                wins += 1;
+                wins++;
+                playerScore.textContent = wins;
                 break;
             case 0:
-                ties += 1;
+                ties++;
+                tieScore.textContent = ties;
                 break;
             case -1:
-                losses += 1;
+                losses++;
+                computerScore.textContent = losses;
                 break;
         }
-        if (wins >= games || losses >= games) {
-            if (wins >= games) { output = `You Won the game! ${wins} - ${losses}`; }
-            else if (losses >= games) { output = `You Lost the game ! ${wins} - ${losses}`; }
-            wins = ties = losses = 0;
+        if (wins == games || losses == games) {
+            end = true;
+            let gameResult;
+            if (wins == games) gameResult = 'You Win!';
+            else if (losses == games) gameResult = 'You Lose!';
+            roundNumber.textContent = gameResult;
         }
-        else output = `You: ${wins} | Ties: ${ties} | Computer: ${losses}`;
-        results.innerHTML = output;
+        else {
+            roundNumber.textContent = `round ${round}`;
+        }
     })
+})
+
+resetBtn.addEventListener('click', () => {
+    end = false;
+    round = 1;
+    wins = ties = losses = 0;
+    playerScore.textContent = tieScore.textContent = computerScore.textContent = '0';
+    roundNumber.textContent = 'round 1';
 })

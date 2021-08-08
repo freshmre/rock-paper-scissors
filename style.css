@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+#container {
+    height: 80%;
+    width: 700px;
+    margin: auto;
+    display: grid;
+    grid-template: 
+        "rn rn rn" 15% 
+        "ps ts cs" 15% 
+        "pb gh cb" 50%
+        "pc gh cc" 20% / 33% 34% 33%;
+    align-items: center;
+    justify-items: center;
+}
+
+#round-number {
+    font-size: 30px;
+    grid-area: rn;
+}
+
+#player-score-box {
+    grid-area: ps;
+}
+
+#tie-score-box {
+    grid-area: ts;
+}
+
+#comupter-score-box {
+    grid-area: cs;
+}
+
+#game-history {
+    grid-area: gh;
+}
+
+.score-num {
+    text-align: center;
+    font-size: 45px;
+}
+
+#controls {
+    width: 100%;
+    grid-area: pc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#rock-button {
+    background: url('assets/rock.svg');
+}
+
+#paper-button {
+    background: url('assets/paper.svg');
+}
+
+#scissors-button {
+    background: url('assets/scissors.svg');
+}
+
+#controls button {
+    border: 0px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-color: lightgray;
+    width: 60px;
+    height: 60px;
+    background-size: 100%;
+}
+
+#controls button:hover {
+    cursor: pointer;
+}
+
+#player-pick {
+    grid-area: pb;
+    background: url('assets/player.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+#computer-pick {
+    grid-area: cb;
+    background: url('assets/computer.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+#reset-btn {
+    padding: 20px;
+    border: 0px;
+    background-color: lightgray;
+    cursor: pointer;
+}
